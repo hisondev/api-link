@@ -35,7 +35,7 @@ import javax.servlet.http.HttpServletRequest;
  * <p>Usage Example:</p>
  * <pre>
  *    ApiController controller = new ApiController();
- *    ResponseEntity<DataWrapper> response = controller.handlePost(dataWrapper, request);
+ *    ResponseEntity&lt;DataWrapper&gt; response = controller.handlePost(dataWrapper, request);
  * </pre>
  * 
  * @author Hani son

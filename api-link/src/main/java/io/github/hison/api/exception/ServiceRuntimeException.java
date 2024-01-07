@@ -25,7 +25,7 @@ package io.github.hison.api.exception;
  *     }
  * 
  *     // Handling in ApiHandler
- *     public ResponseEntity<DataWrapper> handleServiceRuntimeException(ServiceRuntimeException e, DataWrapper dw, HttpServletRequest req) {
+ *     public ResponseEntity&lt;DataWrapper&gt; handleServiceRuntimeException(ServiceRuntimeException e, DataWrapper dw, HttpServletRequest req) {
  *         // Custom catch logic here
  *     }
  * </pre>
