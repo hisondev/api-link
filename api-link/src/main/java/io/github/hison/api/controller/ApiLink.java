@@ -137,12 +137,12 @@ public class ApiLink {
                     return (DataWrapper) targetMethodHandle.invokeExact();
                 }
             } else {
-                throw new ApiException("Method not found: " + methodName, "APIERROR0006");
+                throw new ApiException("Method not found: " + methodName, "APIERROR0004");
             }
         }catch (NoSuchMethodException e) {
-            throw new ApiException("no such method: " + methodName, "APIERROR0007");
+            throw new ApiException("no such method: " + methodName, "APIERROR0005");
         } catch (IllegalAccessException e) {
-            throw new ApiException("This is illegal access: " + cmd, "APIERROR0008");
+            throw new ApiException("This is illegal access: " + cmd, "APIERROR0006");
         }
     }
 
