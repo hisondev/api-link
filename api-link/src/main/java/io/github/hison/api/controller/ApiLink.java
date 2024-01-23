@@ -118,10 +118,6 @@ public class ApiLink {
         } catch (NoSuchBeanDefinitionException e) {
             throw new ApiException("no bean named: " + serviceName, "APIERROR0003");
         }
-
-        if (service == null) {
-            throw new ApiException("Service not found: " + serviceName, "APIERROR0004");
-        }
         
         try {
             MethodHandle targetMethodHandle = MethodHandleUtil.getFlexibleMethodHandle(
