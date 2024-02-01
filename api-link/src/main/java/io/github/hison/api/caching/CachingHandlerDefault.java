@@ -1,4 +1,4 @@
-package io.github.hison.api.caching;
+package com.example.demo.common.api.caching;
 
 import java.io.IOException;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -92,6 +92,9 @@ public class CachingHandlerDefault implements CachingHandler{
         for (WebSocketSession session : sessions) {
             try {
                 if (session.isOpen()) {
+                    if(message == null) {
+                        message = "";
+                    }
                     session.sendMessage(new TextMessage(message));
                 }
             } catch (IOException e) {
