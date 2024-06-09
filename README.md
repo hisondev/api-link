@@ -1,4 +1,4 @@
-# api-link
+# api-link [![Maven Central](https://img.shields.io/maven-central/v/io.github.hisondev/api-link.svg?label=Maven%20Central)](https://mvnrepository.com/artifact/io.github.hisondev/api-link)
 API-Link is a novel solution for Spring projects, aimed at streamlining development by eliminating the need for individual controllers. It allows developers to use a single 'cmd' value to invoke service layer methods, simplifying workflow and boosting productivity.
 
 ## Introduction
