@@ -8,6 +8,8 @@ Additionally, ApiLink incorporates support for caching in WebSocket, relying on 
 
 The overarching goal of ApiLink is to provide a convenient, efficient, and flexible tool for developers working on Spring projects, making the development process more streamlined and effective.
 
+For enhanced and convenient front-end and server communication, this library can be used in conjunction with `apiLink.min.js` from [hison-js](https://github.com/hisondev/hison-js).
+
 ## Getting Started
 To start using the `api-link` library in your project, follow the installation and usage instructions below.
 
