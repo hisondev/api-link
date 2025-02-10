@@ -25,7 +25,7 @@ You can add the `api-link` library to your project by including the following de
 <dependency>
     <groupId>io.github.hisondev</groupId>
     <artifactId>api-link</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
 </dependency>
 ```
 

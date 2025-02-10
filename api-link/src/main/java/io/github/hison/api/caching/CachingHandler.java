@@ -6,7 +6,7 @@ import org.springframework.web.socket.WebSocketSession;
 
 /** 
  * @author Hani son
- * @version 1.0.0
+ * @version 1.0.1
  */
 public interface CachingHandler {
     public void addSession(CopyOnWriteArrayList<WebSocketSession> sessions, WebSocketSession session);

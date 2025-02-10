@@ -5,7 +5,7 @@ import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
 
 /** 
  * @author Hani son
- * @version 1.0.0
+ * @version 1.0.1
  */
 public class WebSocketConfig implements WebSocketConfigurer {
     private final CachingWebSocketSessionManager sessionManager = CachingWebSocketSessionManager.getInstance();
