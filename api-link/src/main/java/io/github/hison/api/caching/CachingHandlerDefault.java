@@ -3,6 +3,7 @@ package io.github.hison.api.caching;
 import java.io.IOException;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistration;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 
@@ -44,9 +45,35 @@ import org.springframework.web.socket.WebSocketSession;
  * This class is pivotal for managing WebSocket connections in a caching context and provides a foundation for WebSocket communication and session management.
  * 
  * @author Hani son
- * @version 1.0.1
+ * @version 1.0.2
  */
 public class CachingHandlerDefault implements CachingHandler{
+    /**
+     * Allows for custom configuration of the provided {@code WebSocketHandlerRegistration} instance.
+     * This method can be overridden in custom implementations of {@code CachingHandler} to apply specific settings,
+     * such as allowed origins, handshake interceptors, or additional message codecs for the WebSocket handler.
+     * 
+     * <p>Default Implementation:</p>
+     * This default implementation does not modify the {@code WebSocketHandlerRegistration} and serves as a no-op method.
+     * Custom handlers can override this method to add specific configurations.
+     * 
+     * <p>Example of overriding this method in a custom handler:</p>
+     * <pre>
+     *     &#64;Override
+     *     public void setRegistry(WebSocketHandlerRegistration registry) {
+     *         registry.setAllowedOrigins("http://example.com");
+     *     }
+     * </pre>
+     * 
+     * @param registry The {@code WebSocketHandlerRegistration} instance to be configured.
+     * 
+     * This method provides flexibility for developers who need to apply additional WebSocket handler settings
+     * that are not covered by the default {@code CachingHandler} behavior.
+     */
+    @Override
+    public void setRegistry(WebSocketHandlerRegistration registry) {
+    };
+    
     /**
      * Adds a WebSocket session to the provided CopyOnWriteArrayList of WebSocketSession objects.
      * This method is used to maintain a list of active WebSocket sessions.
