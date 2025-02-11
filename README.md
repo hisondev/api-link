@@ -34,8 +34,20 @@ You can add the `api-link` library to your project by including the following de
 The api-link library allows you to simplify your Spring application's controller layer. Here's how to set it up:
 
 1. **Define your service methods:**
-Create service methods that you want to expose through the `api-link`
-1. **Create a custom data converter:**
+Create api controller that you want to expose through the `api-link`
+```java
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.demo.common.api.controller.ApiLink;
+
+@RestController
+@RequestMapping("/hison-api-link")
+public class ApiController extends ApiLink{
+}
+```
+
+2. **Create a custom data converter:**
 Define a class that extends `DataConverterDefault` and override necessary methods for customization.
 
 ```java
@@ -49,7 +61,7 @@ public class MyService {
 }
 ```
 
-2. **Configure the API Link controller:**
+3. **Configure the API Link controller:**
 Set up the `ApiLink` controller to handle HTTP requests and invoke your service methods.
 
 ```java
@@ -63,8 +75,24 @@ public class ApiLinkApplication {
     }
 }
 ```
-3. **Making API Calls**
+4. **Making API Calls**
 To call a service method via the `api-link`, send an HTTP request with the 'cmd' parameter specifying the service and method names.
+
+```java
+package com.example.demo.biz.member.service;
+
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
+import com.example.demo.common.data.wrapper.DataWrapper;
+
+@Service
+public class MemberService {
+    public DataWrapper getMember(@RequestBody DataWrapper dw) {
+        // Your business logic here
+        return dw;
+    }
+}
+```
 
 ```bash
 curl -X POST http://localhost:8080/api -d '{"cmd": "myService.myMethod", "data": {...}}' -H "Content-Type: application/json"
