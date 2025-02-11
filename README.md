@@ -69,9 +69,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ApiLinkApplication {
+public class DemoApplication {
     public static void main(String[] args) {
-        SpringApplication.run(ApiLinkApplication.class, args);
+        SpringApplication.run(DemoApplication.class, args);
     }
 }
 ```
@@ -126,12 +126,13 @@ Ensure that your custom handler is registered when the application starts.
 ```java
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import com.example.demo.config.CustomApiHandler;
 
 @SpringBootApplication
-public class ApiLinkApplication {
+public class DemoApplication {
     public static void main(String[] args) {
         CustomApiHandler.register();
-        SpringApplication.run(ApiLinkApplication.class, args);
+		SpringApplication.run(DemoApplication.class, args);
     }
 }
 ```
@@ -159,7 +160,7 @@ public void myMethod(DataWrapper data) {
 ## Caching with WebSocket
 The api-link library supports caching through WebSockets, allowing real-time data updates and efficient data management.
 
-**Implement WebSocket handler:**
+1. **Implement WebSocket handler:**
 Handle WebSocket messages and manage caching logic.
 
 ```java
@@ -179,6 +180,23 @@ public class WebSocketHandler extends TextWebSocketHandler {
         // Handle incoming WebSocket message and manage caching
         String payload = message.getPayload();
         // Your caching logic here
+    }
+}
+```
+
+2. **Register the custom handler in your application:**
+Ensure that your custom handler is registered when the application starts.
+
+```java
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import com.example.demo.config.CustomCachingHandler;
+
+@SpringBootApplication
+public class DemoApplication {
+    public static void main(String[] args) {
+		CustomCachingHandler.register();
+		SpringApplication.run(DemoApplication.class, args);
     }
 }
 ```
