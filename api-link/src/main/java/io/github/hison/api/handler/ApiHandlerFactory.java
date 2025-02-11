@@ -2,7 +2,7 @@ package io.github.hison.api.handler;
 
 /** 
  * @author Hani son
- * @version 1.0.1
+ * @version 1.0.2
  */
 public class ApiHandlerFactory {
 

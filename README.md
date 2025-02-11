@@ -25,7 +25,7 @@ You can add the `api-link` library to your project by including the following de
 <dependency>
     <groupId>io.github.hisondev</groupId>
     <artifactId>api-link</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
 </dependency>
 ```
 
@@ -131,36 +131,21 @@ public void myMethod(DataWrapper data) {
 ## Caching with WebSocket
 The api-link library supports caching through WebSockets, allowing real-time data updates and efficient data management.
 
-1. **Configure WebSocket settings:**
-Set up WebSocket configuration using `CachingWebSocketConfig`.
-
-```java
-import org.springframework.context.annotation.Configuration;
-import org.springframework.web.socket.config.annotation.EnableWebSocket;
-import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
-import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
-
-@Configuration
-@EnableWebSocket
-public class CachingWebSocketConfig implements WebSocketConfigurer {
-
-    @Override
-    public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-        registry.addHandler(new WebSocketHandler(), "/ws").setAllowedOrigins("*");
-    }
-}
-```
-
-2. **Implement WebSocket handler:**
+**Implement WebSocket handler:**
 Handle WebSocket messages and manage caching logic.
 
 ```java
+import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistration;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 public class WebSocketHandler extends TextWebSocketHandler {
-    
+    @Override	
+        public void setRegistry(WebSocketHandlerRegistration registry) {
+        // You can setAllowedOrigins via setRegistry
+        registry.setAllowedOrigins("http://localhost:3000/");	
+    };
     @Override
     public void handleTextMessage(WebSocketSession session, TextMessage message) {
         // Handle incoming WebSocket message and manage caching
