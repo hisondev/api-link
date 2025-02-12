@@ -34,8 +34,4 @@ public class CachingWebSocketSessionManager {
     public void notifyAllSessions(String message) {
         handler.notifyAllSessions(sessions, message);
     }
-
-    public String getEndPoint() {
-        return handler.getEndPoint();
-    }
 }

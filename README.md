@@ -33,49 +33,30 @@ You can add the `api-link` library to your project by including the following de
 ### Basic Setup
 The api-link library allows you to simplify your Spring application's controller layer. Here's how to set it up:
 
-1. **Define your service methods:**
-Create api controller that you want to expose through the `api-link`
-```java
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+1. **Configuration**
+Automatic Bean Registration
+ApiController and WebSocketConfig are automatically registered as Beans through spring.factories. This means you do not need to manually create these components.
 
-import com.example.demo.common.api.controller.ApiLink;
-
-@RestController
-@RequestMapping("/hison-api-link")
-public class ApiController extends ApiLink{
-}
+```properties
+# spring.factories configuration (handled internally)
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  io.github.hison.api.caching.WebSocketConfig,\
+  io.github.hison.api.controller.ApiController
 ```
 
-2. **Create a custom data converter:**
-Define a class that extends `DataConverterDefault` and override necessary methods for customization.
-
+### Conflict Prevention
+ApiController is registered only if ApiLink is not already defined in the project.
 ```java
-import org.springframework.stereotype.Service;
-
-@Service
-public class MyService {
-    public void myMethod(DataWrapper data) {
-        // Your business logic here
-    }
-}
+@ConditionalOnMissingBean(ApiLink.class)
+public class ApiController extends ApiLink {}
+```
+WebSocketConfig is registered only if WebSocketConfigurer is not defined.
+```java
+@ConditionalOnMissingBean(WebSocketConfigurer.class)
+public class WebSocketConfig implements WebSocketConfigurer {}
 ```
 
-3. **Configure the API Link controller:**
-Set up the `ApiLink` controller to handle HTTP requests and invoke your service methods.
-
-```java
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-@SpringBootApplication
-public class DemoApplication {
-    public static void main(String[] args) {
-        SpringApplication.run(DemoApplication.class, args);
-    }
-}
-```
-4. **Making API Calls**
+2. **Making API Calls**
 To call a service method via the `api-link`, send an HTTP request with the 'cmd' parameter specifying the service and method names.
 
 ```java
@@ -201,8 +182,26 @@ public class DemoApplication {
 }
 ```
 
-## Contributing
-Contributions are welcome! If you have any ideas, suggestions, or bug reports, please open an issue or submit a pull request on GitHub. Make sure to follow the project's code style and add tests for any new features or changes.
+## application.properties Configuration
+The api-link library provides several configuration options via application.properties, making it easy to customize behavior.
+
+```properties
+# API Path Configuration
+hison.link.api.path=/hison-api-link  # Default API path
+# CORS Configuration
+hison.link.api.cors.origins=*                # Default: Allow all origins
+hison.link.api.cors.allow-credentials=false  # Default: Do not allow credentials
+# API Status Message
+hison.link.api.status.message=Hison API is ready and running.
+# WebSocket Endpoint Configuration
+hison.link.websocket.endpoint=/hison-caching-websocket-endpoint  # Default WebSocket endpoint
+```
+### Explanation of Properties:
+hison.link.api.path: Sets the base path for the API controller.
+hison.link.api.cors.origins: Defines allowed CORS origins. Use a comma-separated list for multiple origins.
+hison.link.api.cors.allow-credentials: Specifies whether credentials (cookies, authorization headers) are allowed in CORS requests.
+hison.link.api.status.message: Custom status message returned by the /status endpoint.
+hison.link.websocket.endpoint: Sets the WebSocket endpoint for real-time data updates.
 
 ## License
 MIT License
