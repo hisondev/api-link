@@ -46,7 +46,7 @@ import io.github.hison.data.wrapper.DataWrapper;
  * ApiHandlerDefault is essential for handling API requests and providing a structured approach to error handling in API operations.
  * 
  * @author Hani son
- * @version 1.0.2
+ * @version 1.0.3
  */
 public class ApiHandlerDefault implements ApiHandler{
 
