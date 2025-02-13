@@ -15,8 +15,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.lang.NonNull;
 
 /** 
- * @author Hani son
- * @version 1.0.3
+ * WebSocket configuration with CORS validation using static methods.
+ * 
+ * @author Hani Son
+ * @version 1.0.4
  */
 @Configuration
 @EnableWebSocket
@@ -32,18 +34,13 @@ public class WebSocketConfig implements WebSocketConfigurer {
     @Value("${hison.link.api.cors.allow-credentials:false}")
     private boolean allowCredentials;
 
-    private final CorsValidator corsValidator;
     private final CachingWebSocketSessionManager sessionManager = CachingWebSocketSessionManager.getInstance();
-
-    public WebSocketConfig(CorsValidator corsValidator) {
-        this.corsValidator = corsValidator;
-    }
 
     @Override
     public void registerWebSocketHandlers(@NonNull WebSocketHandlerRegistry registry) {
         List<String> endpoints = Arrays.asList(websocketEndpoints.split(","));
-        List<String> origins = corsValidator.parseOrigins(corsOrigins);
-        corsValidator.validateCorsSettings(origins, allowCredentials);
+        List<String> origins = CorsValidator.parseOrigins(corsOrigins);
+        CorsValidator.validateCorsSettings(origins, allowCredentials);
 
         for (String endpoint : endpoints) {
             registry.addHandler(new WebSocketHandler(sessionManager), endpoint.trim())

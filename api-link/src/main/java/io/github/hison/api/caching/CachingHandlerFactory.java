@@ -2,7 +2,7 @@ package io.github.hison.api.caching;
 
 /** 
  * @author Hani son
- * @version 1.0.3
+ * @version 1.0.4
  */
 public class CachingHandlerFactory {
     private static CachingHandler cachingHandler;

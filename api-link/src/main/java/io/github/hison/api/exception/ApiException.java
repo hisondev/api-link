@@ -27,7 +27,7 @@ package io.github.hison.api.exception;
  * write custom error logic within ApiHandler's handleApiException method.
  * 
  * @author Hani son
- * @version 1.0.3
+ * @version 1.0.4
  */
 public class ApiException extends RuntimeException {
     private String code = "APIERROR";

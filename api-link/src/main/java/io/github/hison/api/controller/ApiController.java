@@ -29,16 +29,10 @@ public class ApiController extends ApiLink {
     @Value("${hison.link.api.status.message:Hison API is running.}")
     private String statusMessage;
 
-    private final CorsValidator corsValidator;
-
-    public ApiController(CorsValidator corsValidator) {
-        this.corsValidator = corsValidator;
-    }
-
     @PostConstruct
     public void validateCorsConfig() {
-        List<String> origins = corsValidator.parseOrigins(corsOrigins);
-        corsValidator.validateCorsSettings(origins, allowCredentials);
+        List<String> origins = CorsValidator.parseOrigins(corsOrigins);
+        CorsValidator.validateCorsSettings(origins, allowCredentials);
     }
 
     @RequestMapping("/status")
