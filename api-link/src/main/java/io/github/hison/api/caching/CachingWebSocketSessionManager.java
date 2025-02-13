@@ -5,7 +5,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 /** 
  * @author Hani son
- * @version 1.0.4
+ * @version 1.0.5
  */
 public class CachingWebSocketSessionManager {
     private static CachingWebSocketSessionManager instance;

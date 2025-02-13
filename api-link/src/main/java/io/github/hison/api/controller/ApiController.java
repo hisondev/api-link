@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import io.github.hison.api.handler.CorsValidator;
+import io.github.hison.api.util.CorsValidator;
 
 import javax.annotation.PostConstruct;
 import java.util.List;

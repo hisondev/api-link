@@ -39,7 +39,7 @@ import javax.servlet.http.HttpServletRequest;
  * </pre>
  * 
  * @author Hani son
- * @version 1.0.4
+ * @version 1.0.5
  */
 public class ApiLink {
     @Autowired

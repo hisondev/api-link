@@ -1,4 +1,4 @@
-package io.github.hison.api.handler;
+package io.github.hison.api.util;
 
 import java.util.Arrays;
 import java.util.List;
@@ -8,7 +8,7 @@ import java.util.List;
  * Provides static methods for parsing origins and validating CORS settings.
  * 
  * @author Hani Son
- * @version 1.0.4
+ * @version 1.0.5
  */
 public class CorsValidator {
 
