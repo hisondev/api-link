@@ -25,7 +25,7 @@ You can add the `api-link` library to your project by including the following de
 <dependency>
     <groupId>io.github.hisondev</groupId>
     <artifactId>api-link</artifactId>
-    <version>1.0.5</version>
+    <version>1.0.6</version>
 </dependency>
 ```
 
@@ -46,14 +46,31 @@ org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
 
 ### Conflict Prevention
 ApiController is registered only if ApiLink is not already defined in the project.
+But you can use your custom Controller with extending ApiLink.
 ```java
-@ConditionalOnMissingBean(ApiLink.class)
-public class ApiController extends ApiLink {}
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.CrossOrigin;
+
+import io.github.hison.api.controller.ApiLink;
+
+@RestController
+@RequestMapping("hison-api-link")
+@CrossOrigin("http://localhost:3000/")
+public class ApiLinkController extends ApiLink {}
 ```
+
 WebSocketConfig is registered only if WebSocketConfigurer is not defined.
+But you can use your custom WebSocket with extending CachingWebSocket.
 ```java
-@ConditionalOnMissingBean(WebSocketConfigurer.class)
-public class WebSocketConfig implements WebSocketConfigurer {}
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.socket.config.annotation.EnableWebSocket;
+
+import io.github.hison.api.caching.CachingWebSocket;
+
+@Configuration
+@EnableWebSocket
+public class ApiLinkWebSocket implements CachingWebSocket {}
 ```
 
 2. **Making API Calls**
