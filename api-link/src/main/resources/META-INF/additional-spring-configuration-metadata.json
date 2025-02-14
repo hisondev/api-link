@@ -1,0 +1,29 @@
+{
+    "properties": [
+        {
+            "name": "hison.link.api.cors.origins",
+            "type": "java.lang.String",
+            "description": "A description for 'hison.link.api.cors.origins'"
+        },
+        {
+            "name": "hison.link.api.path",
+            "type": "java.lang.String",
+            "description": "A description for 'hison.link.api.path'"
+        },
+        {
+            "name": "hison.link.api.cors.allow-credentials",
+            "type": "java.lang.String",
+            "description": "A description for 'hison.link.api.cors.allow-credentials'"
+        },
+        {
+            "name": "hison.link.api.status.message",
+            "type": "java.lang.String",
+            "description": "A description for 'hison.link.api.status.message'"
+        },
+        {
+            "name": "hison.link.websocket.endpoint",
+            "type": "java.lang.String",
+            "description": "A description for 'hison.link.websocket.endpoint'"
+        }
+    ]
+}
