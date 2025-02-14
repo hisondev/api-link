@@ -1,4 +1,4 @@
-package io.github.hison.api.handler;
+package io.github.hison.api.controllerhandler;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -11,7 +11,7 @@ import io.github.hison.data.wrapper.DataWrapper;
 
 /** 
  * @author Hani son
- * @version 1.0.5
+ * @version 1.0.6
  */
 public interface ApiHandler {
     DataModel beforeHandleRequest(DataWrapper dw, HttpServletRequest req);

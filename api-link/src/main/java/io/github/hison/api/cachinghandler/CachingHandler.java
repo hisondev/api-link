@@ -1,4 +1,4 @@
-package io.github.hison.api.caching;
+package io.github.hison.api.cachinghandler;
 
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -6,7 +6,7 @@ import org.springframework.web.socket.WebSocketSession;
 
 /** 
  * @author Hani son
- * @version 1.0.5
+ * @version 1.0.6
  */
 public interface CachingHandler {
 

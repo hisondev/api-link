@@ -1,4 +1,4 @@
-package io.github.hison.api.controller;
+package io.github.hison.api.util;
 
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
@@ -27,7 +27,7 @@ import io.github.hison.data.wrapper.DataWrapper;
  * Note: The usage of MethodHandles requires understanding of Java's MethodHandle API and should be used with caution.
  * 
  * @author Hani son
- * @version 1.0.5
+ * @version 1.0.6
  */
 public class MethodHandleUtil {
     public static MethodHandle getMethodHandle(Class<?> clazz, String methodName, Class<?> returnType, Class<?>... parameterTypes) throws NoSuchMethodException, IllegalAccessException {

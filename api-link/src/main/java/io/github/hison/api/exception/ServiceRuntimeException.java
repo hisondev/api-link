@@ -34,7 +34,7 @@ package io.github.hison.api.exception;
  * providing a clear path for managing exceptions and enhancing error response mechanisms in API operations.
  * 
  * @author Hani son
- * @version 1.0.5
+ * @version 1.0.6
  */
 public class ServiceRuntimeException extends RuntimeException {
     private String code = "0000";

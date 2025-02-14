@@ -3,6 +3,7 @@ package io.github.hison.api.caching;
 import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
 import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
 
+import io.github.hison.api.cachinghandler.CachingWebSocketHandler;
 import io.github.hison.api.util.CorsValidator;
 
 import java.util.Arrays;
@@ -15,9 +16,9 @@ import org.springframework.lang.NonNull;
  * WebSocket configuration with CORS validation using static methods.
  * 
  * @author Hani Son
- * @version 1.0.5
+ * @version 1.0.6
  */
-public class WebSocketConfigurerImpl implements WebSocketConfigurer {
+public class CachingWebSocket implements WebSocketConfigurer {
 
     @Value("${hison.link.websocket.endpoint:/hison-websocket-endpoint}")
     private String websocketEndpoints;
@@ -37,7 +38,7 @@ public class WebSocketConfigurerImpl implements WebSocketConfigurer {
         CorsValidator.validateCorsSettings(origins, allowCredentials);
 
         for (String endpoint : endpoints) {
-            registry.addHandler(new WebSocketHandler(sessionManager), endpoint.trim())
+            registry.addHandler(new CachingWebSocketHandler(sessionManager), endpoint.trim())
                     .setAllowedOrigins(origins.toArray(new String[0]));
         }
     }

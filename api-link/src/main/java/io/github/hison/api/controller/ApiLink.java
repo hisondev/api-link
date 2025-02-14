@@ -10,10 +10,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import io.github.hison.api.controllerhandler.ApiHandler;
+import io.github.hison.api.controllerhandler.ApiHandlerFactory;
 import io.github.hison.api.exception.ApiException;
 import io.github.hison.api.exception.ServiceRuntimeException;
-import io.github.hison.api.handler.ApiHandler;
-import io.github.hison.api.handler.ApiHandlerFactory;
+import io.github.hison.api.util.MethodHandleUtil;
 import io.github.hison.data.model.DataModel;
 import io.github.hison.data.wrapper.DataWrapper;
 
@@ -39,7 +40,7 @@ import javax.servlet.http.HttpServletRequest;
  * </pre>
  * 
  * @author Hani son
- * @version 1.0.5
+ * @version 1.0.6
  */
 public class ApiLink {
     @Autowired

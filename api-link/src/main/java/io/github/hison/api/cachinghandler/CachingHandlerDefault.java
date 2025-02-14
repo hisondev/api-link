@@ -1,4 +1,4 @@
-package io.github.hison.api.caching;
+package io.github.hison.api.cachinghandler;
 
 import java.io.IOException;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -43,7 +43,7 @@ import org.springframework.web.socket.WebSocketSession;
  * This class is pivotal for managing WebSocket connections in a caching context and provides a foundation for WebSocket communication and session management.
  * 
  * @author Hani son
- * @version 1.0.5
+ * @version 1.0.6
  */
 public class CachingHandlerDefault implements CachingHandler{
     /**

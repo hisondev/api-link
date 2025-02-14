@@ -11,6 +11,10 @@ import io.github.hison.api.util.CorsValidator;
 import javax.annotation.PostConstruct;
 import java.util.List;
 
+/** 
+ * @author Hani son
+ * @version 1.0.6
+ */
 @RestController
 @RequestMapping("${hison.link.api.path:/hison-api-link}")
 @CrossOrigin(
@@ -18,7 +22,7 @@ import java.util.List;
     allowCredentials = "${hison.link.api.cors.allow-credentials:false}"
 )
 @ConditionalOnMissingBean(ApiLink.class)
-public class ApiController extends ApiLink {
+public class ApiLinkController extends ApiLink {
 
     @Value("${hison.link.api.cors.origins:*}")
     private String corsOrigins;

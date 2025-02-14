@@ -1,3 +1,3 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  io.github.hison.api.caching.WebSocketConfig,\
-  io.github.hison.api.controller.ApiController
+  io.github.hison.api.caching.ApiLinkWebSocket,\
+  io.github.hison.api.controller.ApiLinkController

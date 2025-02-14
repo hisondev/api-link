@@ -1,11 +1,15 @@
 package io.github.hison.api.caching;
 
 import org.springframework.web.socket.WebSocketSession;
+
+import io.github.hison.api.cachinghandler.CachingHandler;
+import io.github.hison.api.cachinghandler.CachingHandlerFactory;
+
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /** 
  * @author Hani son
- * @version 1.0.5
+ * @version 1.0.6
  */
 public class CachingWebSocketSessionManager {
     private static CachingWebSocketSessionManager instance;

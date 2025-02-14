@@ -1,4 +1,4 @@
-package io.github.hison.api.handler;
+package io.github.hison.api.controllerhandler;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -46,7 +46,7 @@ import io.github.hison.data.wrapper.DataWrapper;
  * ApiHandlerDefault is essential for handling API requests and providing a structured approach to error handling in API operations.
  * 
  * @author Hani son
- * @version 1.0.5
+ * @version 1.0.6
  */
 public class ApiHandlerDefault implements ApiHandler{
 
