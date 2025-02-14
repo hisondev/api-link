@@ -11,7 +11,7 @@ import io.github.hison.data.wrapper.DataWrapper;
 
 /** 
  * @author Hani son
- * @version 1.0.6
+ * @version 1.0.7
  */
 public interface ApiHandler {
     DataModel beforeHandleRequest(DataWrapper dw, HttpServletRequest req);

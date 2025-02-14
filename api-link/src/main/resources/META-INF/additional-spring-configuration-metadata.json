@@ -24,6 +24,11 @@
             "name": "hison.link.websocket.endpoint",
             "type": "java.lang.String",
             "description": "A description for 'hison.link.websocket.endpoint'"
+        },
+        {
+            "name": "hison.link.api.cors.methods",
+            "type": "java.lang.String",
+            "description": "A description for 'hison.link.api.cors.methods'"
         }
     ]
 }
