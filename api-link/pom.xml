@@ -6,7 +6,7 @@
 
   <groupId>io.github.hisondev</groupId>
   <artifactId>api-link</artifactId>
-  <version>1.0.7</version>
+  <version>1.0.8</version>
 
   <name>API Link</name>
   <description>API-Link is a novel solution for Spring projects, aimed at streamlining development by eliminating the need for individual controllers. It allows developers to use a single 'cmd' value to invoke service layer methods, simplifying workflow and boosting productivity.</description>
@@ -75,7 +75,7 @@
     <dependency>
       <groupId>io.github.hisondev</groupId>
       <artifactId>data-model</artifactId>
-      <version>1.0.7</version>
+      <version>1.0.8</version>
     </dependency>
   </dependencies>
 
@@ -122,14 +122,12 @@
     </pluginManagement>
     <plugins>
       <plugin>
-        <groupId>org.sonatype.plugins</groupId>
-        <artifactId>nexus-staging-maven-plugin</artifactId>
-        <version>1.6.7</version>
+        <groupId>org.sonatype.central</groupId>
+        <artifactId>central-publishing-maven-plugin</artifactId>
+        <version>0.9.0</version>
         <extensions>true</extensions>
         <configuration>
-          <serverId>ossrh</serverId>
-          <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
-          <autoReleaseAfterClose>true</autoReleaseAfterClose>
+          <publishingServerId>central</publishingServerId>
         </configuration>
       </plugin>
       <plugin>
