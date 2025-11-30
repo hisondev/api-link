@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>io.github.hisondev</groupId>
   <artifactId>api-link</artifactId>
-  <version>1.0.8</version>
+  <version>2.0.0</version>
 
   <name>API Link</name>
   <description>API-Link is a novel solution for Spring projects, aimed at streamlining development by eliminating the need for individual controllers. It allows developers to use a single 'cmd' value to invoke service layer methods, simplifying workflow and boosting productivity.</description>
@@ -48,9 +47,9 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
-    <java.version>1.8</java.version>
+    <maven.compiler.source>21</maven.compiler.source>
+    <maven.compiler.target>21</maven.compiler.target>
+    <java.version>21</java.version>
   </properties>
 
   <dependencyManagement>
@@ -58,7 +57,7 @@
           <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-dependencies</artifactId>
-            <version>2.7.18</version>
+            <version>3.3.5</version>
             <type>pom</type>
             <scope>import</scope>
           </dependency>
@@ -66,16 +65,14 @@
   </dependencyManagement>
 
   <dependencies>
-    <!-- For Caching WebSocket -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-websocket</artifactId>
     </dependency>
-    <!-- For Data Model -->
     <dependency>
       <groupId>io.github.hisondev</groupId>
       <artifactId>data-model</artifactId>
-      <version>1.0.8</version>
+      <version>2.0.0</version>
     </dependency>
   </dependencies>
 

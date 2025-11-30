@@ -14,6 +14,35 @@ The overarching goal of ApiLink is to provide a convenient, efficient, and flexi
 
 For enhanced and convenient front-end and server communication, this library can be used in conjunction with `apiLink.min.js` from [hison-js](https://github.com/hisondev/hison-js).
 
+## Version Compatibility (Spring Boot)
+
+> **Quick rule:**  
+> - **Spring Boot 2.7.x** → use **data-model 1.x** (`javax.*`)  
+> - **Spring Boot 3.x+** → use **data-model 2.x** (`jakarta.*`), **Java 21** (project target)
+
+| data-model | Spring Boot | Java | Namespace |
+|------------|-------------|------|-----------|
+| **1.x**    | **2.7.x**   | 8–17 | `javax.*` |
+| **2.x**    | **3.x+**    | **21** | `jakarta.*` |
+
+If you are migrating to Spring Boot 3.x, switch your dependency to **data-model 2.x**, update imports to `jakarta.*`, and ensure your project uses **Java 21**.
+
+---
+
+## Version Compatibility (api-link)
+
+> **Quick rule:**  
+> - **Spring Boot 2.7.x** → use **api-link 1.x** (`javax.*`)  
+> - **Spring Boot 3.x+** → use **api-link 2.x** (`jakarta.*`), **Java 21** (project target)
+
+| api-link | Spring Boot | Java | Namespace |
+|----------|-------------|------|-----------|
+| **1.x**  | **2.7.x**   | 8–17 | `javax.*` |
+| **2.x**  | **3.x+**    | **21** | `jakarta.*` |
+
+If you are migrating to Spring Boot 3.x, switch your dependency to **api-link 2.x**, align **data-model** to **2.x**, update `javax.*` imports to `jakarta.*`, and build with **Java 21**.
+
+
 ## Getting Started
 To start using the `api-link` library in your project, follow the installation and usage instructions below.
 
