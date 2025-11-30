@@ -43,7 +43,7 @@ import org.springframework.web.socket.WebSocketSession;
  * This class is pivotal for managing WebSocket connections in a caching context and provides a foundation for WebSocket communication and session management.
  * 
  * @author Hani son
- * @version 1.0.7
+ * @version 2.0.0
  */
 public class CachingHandlerDefault implements CachingHandler{
     /**

@@ -8,15 +8,15 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import io.github.hison.api.util.CorsValidator;
+import jakarta.annotation.PostConstruct;
 
-import javax.annotation.PostConstruct;
 import java.util.List;
 
 /** 
  * ApiLinkController with dynamic CORS configuration using WebMvcConfigurer.
  * 
  * @author Hani Son
- * @version 1.0.7
+ * @version 2.0.0
  */
 @RestController
 @RequestMapping("${hison.link.api.path:/hison-api-link}")

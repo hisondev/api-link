@@ -1,7 +1,5 @@
 package io.github.hison.api.controllerhandler;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -9,6 +7,7 @@ import io.github.hison.api.exception.ApiException;
 import io.github.hison.api.exception.ServiceRuntimeException;
 import io.github.hison.data.model.DataModel;
 import io.github.hison.data.wrapper.DataWrapper;
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * Default implementation of the ApiHandler interface.
@@ -46,7 +45,7 @@ import io.github.hison.data.wrapper.DataWrapper;
  * ApiHandlerDefault is essential for handling API requests and providing a structured approach to error handling in API operations.
  * 
  * @author Hani son
- * @version 1.0.7
+ * @version 2.0.0
  */
 public class ApiHandlerDefault implements ApiHandler{
 

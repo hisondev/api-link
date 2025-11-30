@@ -27,7 +27,7 @@ import io.github.hison.data.wrapper.DataWrapper;
  * Note: The usage of MethodHandles requires understanding of Java's MethodHandle API and should be used with caution.
  * 
  * @author Hani son
- * @version 1.0.7
+ * @version 2.0.0
  */
 public class MethodHandleUtil {
     public static MethodHandle getMethodHandle(Class<?> clazz, String methodName, Class<?> returnType, Class<?>... parameterTypes) throws NoSuchMethodException, IllegalAccessException {

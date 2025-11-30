@@ -9,7 +9,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 /** 
  * @author Hani son
- * @version 1.0.7
+ * @version 2.0.0
  */
 public class CachingWebSocketSessionManager {
     private static CachingWebSocketSessionManager instance;

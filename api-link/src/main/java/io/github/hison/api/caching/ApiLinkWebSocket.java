@@ -8,7 +8,7 @@ import org.springframework.web.socket.config.annotation.EnableWebSocket;
  * WebSocket configuration with CORS validation using static methods.
  * 
  * @author Hani Son
- * @version 1.0.7
+ * @version 2.0.0
  */
 @Configuration
 @EnableWebSocket
