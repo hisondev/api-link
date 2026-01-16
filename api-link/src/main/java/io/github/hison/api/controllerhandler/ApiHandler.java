@@ -10,7 +10,7 @@ import jakarta.servlet.http.HttpServletRequest;
 
 /** 
  * @author Hani son
- * @version 2.0.0
+ * @version 2.0.1
  */
 public interface ApiHandler {
     DataModel beforeHandleRequest(DataWrapper dw, HttpServletRequest req);

@@ -4,6 +4,8 @@ import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
 import java.lang.invoke.MethodType;
 
+import org.springframework.http.ResponseEntity;
+
 import io.github.hison.data.wrapper.DataWrapper;
 
 /**
@@ -27,7 +29,7 @@ import io.github.hison.data.wrapper.DataWrapper;
  * Note: The usage of MethodHandles requires understanding of Java's MethodHandle API and should be used with caution.
  * 
  * @author Hani son
- * @version 2.0.0
+ * @version 2.0.1
  */
 public class MethodHandleUtil {
     public static MethodHandle getMethodHandle(Class<?> clazz, String methodName, Class<?> returnType, Class<?>... parameterTypes) throws NoSuchMethodException, IllegalAccessException {
@@ -47,11 +49,19 @@ public class MethodHandleUtil {
             return lookup.findVirtual(clazz, methodName, methodType).bindTo(serviceInstance);
         } catch (NoSuchMethodException ex) {}
         try {
+            MethodType methodType = MethodType.methodType(ResponseEntity.class);
+            return lookup.findVirtual(clazz, methodName, methodType).bindTo(serviceInstance);
+        } catch (NoSuchMethodException ex) {}
+        try {
             MethodType methodType = MethodType.methodType(void.class, DataWrapper.class);
             return lookup.findVirtual(clazz, methodName, methodType).bindTo(serviceInstance);
         } catch (NoSuchMethodException e) {}
         try {
             MethodType methodType = MethodType.methodType(DataWrapper.class, DataWrapper.class);
+            return lookup.findVirtual(clazz, methodName, methodType).bindTo(serviceInstance);
+        } catch (NoSuchMethodException exc) {}
+        try {
+            MethodType methodType = MethodType.methodType(ResponseEntity.class, DataWrapper.class);
             return lookup.findVirtual(clazz, methodName, methodType).bindTo(serviceInstance);
         } catch (NoSuchMethodException exc) {}
         throw new NoSuchMethodException("Method not found: " + methodName);

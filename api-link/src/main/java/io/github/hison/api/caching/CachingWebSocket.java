@@ -16,7 +16,7 @@ import org.springframework.lang.NonNull;
  * WebSocket configuration with CORS validation using static methods.
  * 
  * @author Hani Son
- * @version 2.0.0
+ * @version 2.0.1
  */
 public class CachingWebSocket implements WebSocketConfigurer {
 

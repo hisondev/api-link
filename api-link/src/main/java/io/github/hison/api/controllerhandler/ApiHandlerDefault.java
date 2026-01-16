@@ -45,7 +45,7 @@ import jakarta.servlet.http.HttpServletRequest;
  * ApiHandlerDefault is essential for handling API requests and providing a structured approach to error handling in API operations.
  * 
  * @author Hani son
- * @version 2.0.0
+ * @version 2.0.1
  */
 public class ApiHandlerDefault implements ApiHandler{
 
