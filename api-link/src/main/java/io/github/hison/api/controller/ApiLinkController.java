@@ -2,6 +2,8 @@ package io.github.hison.api.controller;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -12,16 +14,24 @@ import jakarta.annotation.PostConstruct;
 
 import java.util.List;
 
-/** 
+/**
  * ApiLinkController with dynamic CORS configuration using WebMvcConfigurer.
- * 
+ *
  * @author Hani Son
  * @version 2.0.1
  */
+@Configuration
 @RestController
 @RequestMapping("${hison.link.api.path:/hison-api-link}")
 @ConditionalOnMissingBean(ApiLink.class)
 public class ApiLinkController extends ApiLink implements WebMvcConfigurer {
+
+    /**
+     * @param applicationContext the Spring application context, forwarded to {@link ApiLink}
+     */
+    public ApiLinkController(ApplicationContext applicationContext) {
+        super(applicationContext);
+    }
 
     @Value("${hison.link.api.cors.origins:*}")
     private String corsOrigins;

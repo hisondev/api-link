@@ -1,7 +1,6 @@
 package io.github.hison.api.controller;
 
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.DefaultParameterNameDiscoverer;
 import org.springframework.core.ParameterNameDiscoverer;
@@ -51,14 +50,21 @@ import java.util.Objects;
  * @version 2.0.1
  */
 public class ApiLink {
-    @Autowired
-    private ApplicationContext applicationContext;
+    private final ApplicationContext applicationContext;
 
     private ApiHandler handler;
 
     private final ParameterNameDiscoverer parameterNameDiscoverer = new DefaultParameterNameDiscoverer();
 
-    public ApiLink() {
+    /**
+     * Constructor injection of the Spring {@link ApplicationContext} (used to look up service beans
+     * and the {@link ApiHandler}). Subclasses (e.g. a custom controller extending {@code ApiLink})
+     * must pass the context via {@code super(applicationContext)}.
+     *
+     * @param applicationContext the Spring application context
+     */
+    protected ApiLink(ApplicationContext applicationContext) {
+        this.applicationContext = applicationContext;
     }
 
     /**
