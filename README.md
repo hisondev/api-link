@@ -48,7 +48,7 @@ To start using the `api-link` library in your project, follow the installation a
 
 ### Prerequisites
 Before you can use the `api-link` library, you need to have the following software installed on your system:
-- Java Development Kit (JDK) 8 or higher
+- Java Development Kit (JDK) 8 or higher (v2.x requires JDK 21, Spring Boot 3+)
 - Apache Maven (for building the project)
 
 ### Installation
@@ -58,7 +58,7 @@ You can add the `api-link` library to your project by including the following de
 <dependency>
     <groupId>io.github.hisondev</groupId>
     <artifactId>api-link</artifactId>
-    <version>1.0.7</version>
+    <version>2.0.1</version>
 </dependency>
 ```
 
@@ -68,14 +68,15 @@ The api-link library allows you to simplify your Spring application's controller
 
 1. **Configuration**
 Automatic Bean Registration
-ApiController and WebSocketConfig are automatically registered as Beans through spring.factories. This means you do not need to manually create these components.
+`ApiLinkController` and `ApiLinkWebSocket` are auto-registered as beans, so you do not need to create them manually.
+On Spring Boot 3 this happens via `META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports`:
 
-```properties
-# spring.factories configuration (handled internally)
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  io.github.hison.api.caching.WebSocketConfig,\
-  io.github.hison.api.controller.ApiController
+```text
+# (handled internally)
+io.github.hison.api.caching.ApiLinkWebSocket
+io.github.hison.api.controller.ApiLinkController
 ```
+> The WebSocket channel is only for cache-invalidation signals (paired with the hisonjs CachingModule), not a chat/messaging server. Disable it with `hison.link.websocket.enabled=false`.
 
 ### Conflict Prevention
 ApiController is registered only if ApiLink is not already defined in the project.
@@ -112,18 +113,18 @@ To call a service method via the `api-link`, send an HTTP request with the 'cmd'
 ```java
 package com.example.demo.biz.member.service;
 
-import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
-import com.example.demo.common.data.wrapper.DataWrapper;
+import io.github.hison.api.util.ApiLinkService;
+import io.github.hison.data.wrapper.DataWrapper;
 
-@Service
+@ApiLinkService   // v2 required: exposes this bean to api-link AND registers it as a Spring bean (meta @Service)
 public class MemberService {
-    public DataWrapper getMember(@RequestBody DataWrapper dw) {
+    public DataWrapper getMember(DataWrapper dw) {
         // Your business logic here
         return dw;
     }
 }
 ```
+> **v2 note:** only beans annotated with `@ApiLinkService` (or the deprecated `@HisonService`) are callable via api-link; others are rejected with `APIERROR0007`. `@ApiLinkService` is meta-annotated with `@Service`, so you do not need a separate `@Service`.
 
 ```bash
 curl -X POST http://localhost:8080/api -d '{"cmd": "myService.myMethod", "data": {...}}' -H "Content-Type: application/json"
@@ -277,6 +278,17 @@ hison.link.api.cors.allow-credentials: Specifies whether credentials (cookies, a
 hison.link.api.cors.methods: allowed methods.
 hison.link.api.status.message: Custom status message returned by the /status endpoint.
 hison.link.websocket.endpoint: Sets the WebSocket endpoint for real-time data updates.
+
+## Changelog
+
+### 2.0.1
+- **New**: `@ApiLinkService` — meta-annotated with `@Service`, so a single annotation both exposes a bean to api-link and registers it. `@HisonService` is kept as a deprecated alias.
+- **Fix (Boot 3 auto-config)**: `AutoConfiguration.imports` now references the correct classes (`ApiLinkWebSocket`, `ApiLinkController`); auto-registration previously failed on Boot 3 because it pointed to non-existent v1 class names.
+- **Fix (handler resolution)**: the request handler is now resolved lazily on first request — a custom `ApiHandler` registered as a Spring bean is picked up regardless of bean-creation order (no `@DependsOn` workaround needed). The legacy `ApiHandlerFactory.setCustomHandler()` style still works.
+- **Change**: when a service returns `null`, the client now receives a `null` body (instead of an empty `DataWrapper`), matching the "success = DataWrapper or null" contract. Handlers still receive a non-null `DataWrapper` in `afterHandleRequest`.
+- **Improvement**: stronger cmd validation (missing service/method name → `APIERROR0002`), clearer error messages, and Spring null-safety annotations.
+- **Caching**: the WebSocket module is documented as a cache-invalidation signal channel (not chat) and can be toggled via `hison.link.websocket.enabled`.
+- **Deps/Docs**: data-model bumped to 2.0.1; README updated (version, JDK 21, `@ApiLinkService`, corrected auto-registration).
 
 ## License
 MIT License

@@ -17,6 +17,7 @@ import io.github.hison.api.controllerhandler.ApiHandler;
 import io.github.hison.api.controllerhandler.ApiHandlerFactory;
 import io.github.hison.api.exception.ApiException;
 import io.github.hison.api.exception.ServiceRuntimeException;
+import io.github.hison.api.util.ApiLinkService;
 import io.github.hison.api.util.HisonService;
 import io.github.hison.api.util.MethodHandleUtil;
 import io.github.hison.data.model.DataModel;
@@ -26,6 +27,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import java.lang.invoke.MethodHandle;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Objects;
 
 
 /**
@@ -52,12 +54,37 @@ public class ApiLink {
     @Autowired
     private ApplicationContext applicationContext;
 
-    private final ApiHandler handler;
+    private ApiHandler handler;
 
     private final ParameterNameDiscoverer parameterNameDiscoverer = new DefaultParameterNameDiscoverer();
 
     public ApiLink() {
-        this.handler = ApiHandlerFactory.getHandler();
+    }
+
+    /**
+     * Resolves the {@link ApiHandler} lazily, on first request, so it is independent of bean
+     * creation order (no {@code @DependsOn} needed).
+     *
+     * <p>Resolution priority:</p>
+     * <ol>
+     *   <li>A custom {@code ApiHandler} registered as a Spring bean (recommended).</li>
+     *   <li>{@link ApiHandlerFactory#getHandler()} — supports the legacy {@code setCustomHandler()} style.</li>
+     *   <li>The default handler (via the factory).</li>
+     * </ol>
+     * Because this runs at the first HTTP request (after the context is fully initialized),
+     * a custom handler bean is reliably picked up regardless of when it was created.
+     */
+    private ApiHandler handler() {
+        ApiHandler h = this.handler;
+        if (h == null) {
+            if (applicationContext != null) {
+                h = applicationContext.getBeanProvider(ApiHandler.class).getIfAvailable(ApiHandlerFactory::getHandler);
+            } else {
+                h = ApiHandlerFactory.getHandler();
+            }
+            this.handler = h;
+        }
+        return h;
     }
 
     @GetMapping
@@ -94,6 +121,7 @@ public class ApiLink {
     }
 
     private ResponseEntity<DataWrapper> respones(@RequestBody DataWrapper dw, HttpServletRequest req) {
+        ApiHandler handler = handler();
         DataWrapper requestDw = (dw != null ? dw : new DataWrapper());
 
         try {
@@ -106,11 +134,11 @@ public class ApiLink {
             if (responseEntity != null) {
                 responseDw = responseEntity.getBody();
             }
-            if (responseDw == null) {
-                responseDw = new DataWrapper();
-            }
 
-            handler.afterHandleRequest(requestDw, responseDw, req);
+            // The handler always receives a non-null DataWrapper for convenience,
+            // but the actual client response preserves null when the service returned null.
+            DataWrapper responseDwForHandler = (responseDw != null) ? responseDw : new DataWrapper();
+            handler.afterHandleRequest(requestDw, responseDwForHandler, req);
 
             if (responseEntity == null) {
                 return ResponseEntity.noContent().build();
@@ -119,6 +147,7 @@ public class ApiLink {
                 return responseEntity;
             }
 
+            // Preserve a null body (service intentionally returned null) instead of forcing an empty DataWrapper.
             return ResponseEntity
                     .status(responseEntity.getStatusCode())
                     .headers(responseEntity.getHeaders())
@@ -136,6 +165,7 @@ public class ApiLink {
     }
 
     private ResponseEntity<DataWrapper> handleRequest(DataWrapper dw, HttpServletRequest req) throws Throwable {
+        ApiHandler handler = handler();
         DataModel resultCheckAuthority = handler.handleAuthority(dw, req);
         dw.putDataModel("resultCheckAuthority", resultCheckAuthority);
         handler.handleLog(dw, req);
@@ -182,18 +212,25 @@ public class ApiLink {
         String serviceName = cmdParts[0];
         String methodName = cmdParts[1];
 
-        String beanName = decapitalizeFirstLetter(serviceName);
+        if (serviceName == null || serviceName.trim().isEmpty()) {
+            throw new ApiException("Service name is missing.", "APIERROR0002");
+        }
+        if (methodName == null || methodName.trim().isEmpty()) {
+            throw new ApiException("Method name is missing.", "APIERROR0002");
+        }
+
+        String beanName = Objects.requireNonNull(decapitalizeFirstLetter(serviceName));
 
         Object service;
         try {
             service = applicationContext.getBean(beanName);
         } catch (NoSuchBeanDefinitionException e) {
-            throw new ApiException("no bean named: " + serviceName, "APIERROR0003");
+            throw new ApiException("There is no service: " + serviceName, "APIERROR0003");
         }
 
         Class<?> beanType = applicationContext.getType(beanName);
-        if (!isHisonService(beanType != null ? beanType : service.getClass())) {
-            throw new ApiException("This is not hison service: " + serviceName, "APIERROR0007");
+        if (!isApiLinkService(beanType != null ? beanType : service.getClass())) {
+            throw new ApiException("This is not an api-link service: " + serviceName, "APIERROR0007");
         }
 
         try {
@@ -293,18 +330,27 @@ public class ApiLink {
         }
     }
 
-    private static boolean isHisonService(Class<?> clazz) {
+    /**
+     * Returns whether the given class is exposed to api-link.
+     * Recognizes {@link ApiLinkService} (preferred) as well as the deprecated {@link HisonService} (backward compatibility).
+     */
+    private static boolean isApiLinkService(Class<?> clazz) {
         if (clazz == null) {
             return false;
         }
-        if (clazz.isAnnotationPresent(HisonService.class)) {
+        if (isMarked(clazz)) {
             return true;
         }
         Class<?> superClass = clazz.getSuperclass();
-        if (superClass != null && superClass.isAnnotationPresent(HisonService.class)) {
+        if (superClass != null && isMarked(superClass)) {
             return true;
         }
         return false;
+    }
+
+    @SuppressWarnings("deprecation")
+    private static boolean isMarked(Class<?> clazz) {
+        return clazz.isAnnotationPresent(ApiLinkService.class) || clazz.isAnnotationPresent(HisonService.class);
     }
 
     private static String decapitalizeFirstLetter(String str) {

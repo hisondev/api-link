@@ -21,7 +21,7 @@ jv/api-link/            ← git 저장소 루트 (README, LICENSE)
 
 ## 핵심 사실
 
-- **Maven**: `io.github.hisondev:api-link:2.0.0` / Spring Boot 3.3.5 BOM, jakarta / 의존: spring-boot-starter-websocket, data-model 2.0.0 / MIT
+- **Maven**: `io.github.hisondev:api-link:2.0.1`(2026-07-06 보완, 배포 대기) / Spring Boot 3.3.5 BOM, jakarta / 의존: spring-boot-starter-websocket, **data-model 2.0.1** / MIT
 - **패키지는 `io.github.hison.api.*`**
 - **⚠️ v2 필수**: cmd로 호출될 서비스 빈에 `@HisonService`(io.github.hison.api.util) 부착 필수 — 없으면 APIERROR0007. 사이트/README/demo에 미문서화된 v2 신규 요구사항
 - 요청 흐름: beforeHandleRequest → handleAuthority → handleLog → cmd 파싱(빈 이름 = 서비스명 첫 글자 소문자) → 메서드 호출 → afterHandleRequest
@@ -39,14 +39,22 @@ jv/api-link/            ← git 저장소 루트 (README, LICENSE)
 - 전체 메서드 표: `../../../md/hisondev-hisonjv.md`의 ApiLink 섹션
 - 생태계 전체: `../../../md/hisondev-ecosystem.md`
 
-## 알려진 이슈 (수정 금지 — 추후 소유자와 재정리 예정)
+## 보완 이력 (v2.0.1 — 2026-07-06 완료, 배포 대기)
 
-1. **🔴 Boot 3 자동 등록 깨짐 의심**: AutoConfiguration.imports가 존재하지 않는 v1 클래스명(WebSocketConfig, ApiController)을 참조. 올바른 클래스명은 spring.factories에만 있으나 Boot 3는 이를 무시 → 자동 등록 실패/기동 오류 가능성, 실동작 검증 필요
-2. @HisonService v2 필수 요구사항이 어떤 문서에도 없음
-3. 사이트의 커스텀 핸들러 예시 `handle()` 메서드는 v2 인터페이스에 없음 (실제 훅: beforeHandleRequest/handleAuthority/handleLog/afterHandleRequest/예외 4종)
-4. status 기본 메시지 사이트와 상이 ("...ready and running." vs 실제 "...is running.")
-5. 사소: javadoc @version 2.0.1 vs pom 2.0.0, 메서드명 오타 `respones`
-6. demo 프로젝트는 hisonjv 1.0.4(구버전) 사용 — v2 기능/요구사항 검증에 부적합
+원본 의도 + nonoshow 포크 개선 종합. 상세 = `../../../md/hisondev-api-link.md` 11절 / README Changelog. 컴파일·빌드 통과.
+- 🔴 **Boot3 자동등록 복구**(imports 클래스명 정정 ApiLinkWebSocket/ApiLinkController) + @ConditionalOnMissingBean override (D1)
+- 🔴 **핸들러 빈순서 근본해결**: ApiLink가 핸들러를 첫 요청 시 지연조회(빈 우선→정적팩토리 폴백). @DependsOn 불필요 (D3)
+- **@ApiLinkService 신설**(@Service 통합 — 단일 어노테이션으로 빈 등록+노출), @HisonService는 @Deprecated 별칭 (D2)
+- null 응답 계약 정합(null body 반환) / cmd 검증 강화 / null-safety (포크 개선)
+- 캐싱 모듈 명확화(A): "캐시 무효화 신호 채널, 채팅 아님" + `hison.link.websocket.enabled` on/off
+- data-model 2.0.1 의존, pom·README·Changelog
+- ⚠️ 남은 것(github.io 단계): 사이트 handle() 예시·status 메시지·`respones` 오타 / demo는 hisonjv 1.0.4라 v2 검증 부적합
+- ⚠️ 자동등록 Boot3 실동작은 nonoshow 의존성 교체(9단계) 때 최종 검증
+
+## nonoshow 포크와의 관계
+
+- nonoshow `backend/common/api/*`는 이 api-link의 **포크(최신 테스트본)**. 이번 2.0.1이 그 개선을 원본에 반영한 것.
+- **9단계(마지막)**: nonoshow가 포크를 걷어내고 이 원본 2.0.1 의존으로 교체 예정. 단 nonoshow의 `@ApiLinkService`(현재 포크 util)도 원본 것으로 통일.
 
 ## 작업 규칙
 
