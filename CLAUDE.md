@@ -21,7 +21,7 @@ jv/api-link/            ← git 저장소 루트 (README, LICENSE)
 
 ## 핵심 사실
 
-- **Maven**: `io.github.hisondev:api-link:2.0.1`(2026-07-06 보완, 배포 대기) / Spring Boot 3.3.5 BOM, jakarta / 의존: spring-boot-starter-websocket, **data-model 2.0.1** / MIT
+- **Maven**: `io.github.hisondev:api-link:2.0.2`(2026-07-06 보완, 배포 대기) / Spring Boot 3.3.5 BOM, jakarta / 의존: spring-boot-starter-websocket, **data-model 2.0.1** / MIT
 - **패키지는 `io.github.hison.api.*`**
 - **⚠️ v2 필수**: cmd로 호출될 서비스 빈에 `@HisonService`(io.github.hison.api.util) 부착 필수 — 없으면 APIERROR0007. 사이트/README/demo에 미문서화된 v2 신규 요구사항
 - 요청 흐름: beforeHandleRequest → handleAuthority → handleLog → cmd 파싱(빈 이름 = 서비스명 첫 글자 소문자) → 메서드 호출 → afterHandleRequest

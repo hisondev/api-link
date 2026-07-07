@@ -58,7 +58,7 @@ You can add the `api-link` library to your project by including the following de
 <dependency>
     <groupId>io.github.hisondev</groupId>
     <artifactId>api-link</artifactId>
-    <version>2.0.1</version>
+    <version>2.0.2</version>
 </dependency>
 ```
 
@@ -280,6 +280,11 @@ hison.link.api.status.message: Custom status message returned by the /status end
 hison.link.websocket.endpoint: Sets the WebSocket endpoint for real-time data updates.
 
 ## Changelog
+
+### 2.0.2
+- **Refactor**: `ApiLink` now uses constructor injection for `ApplicationContext` (a custom controller extending `ApiLink` must call `super(applicationContext)`), and `ApiLinkController` is annotated `@Configuration` — resolves Spring lint warnings.
+- **Build**: javadoc warnings for missing comments are suppressed (`-Xdoclint:none`); no functional change.
+- (2.0.1 was already published to Central; these changes ship as 2.0.2.)
 
 ### 2.0.1
 - **New**: `@ApiLinkService` — meta-annotated with `@Service`, so a single annotation both exposes a bean to api-link and registers it. `@HisonService` is kept as a deprecated alias.
