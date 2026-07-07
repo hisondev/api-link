@@ -8,7 +8,7 @@ import java.util.List;
  * Provides static methods for parsing origins and validating CORS settings.
  * 
  * @author Hani Son
- * @version 2.0.1
+ * @version 2.0.2
  */
 public class CorsValidator {
 

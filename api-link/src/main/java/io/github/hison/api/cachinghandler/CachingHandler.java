@@ -6,7 +6,7 @@ import org.springframework.web.socket.WebSocketSession;
 
 /** 
  * @author Hani son
- * @version 2.0.1
+ * @version 2.0.2
  */
 public interface CachingHandler {
 

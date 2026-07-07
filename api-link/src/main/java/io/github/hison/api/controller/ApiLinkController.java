@@ -18,7 +18,7 @@ import java.util.List;
  * ApiLinkController with dynamic CORS configuration using WebMvcConfigurer.
  *
  * @author Hani Son
- * @version 2.0.1
+ * @version 2.0.2
  */
 @Configuration
 @RestController

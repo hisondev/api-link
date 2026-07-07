@@ -14,7 +14,7 @@ import java.lang.annotation.Target;
  * annotated only with {@code @HisonService} must also be a Spring bean (e.g. via {@code @Service}).
  *
  * @author Hani son
- * @version 2.0.1
+ * @version 2.0.2
  */
 @Deprecated
 @Target(ElementType.TYPE)

@@ -47,7 +47,7 @@ import java.util.Objects;
  * </pre>
  * 
  * @author Hani son
- * @version 2.0.1
+ * @version 2.0.2
  */
 public class ApiLink {
     private final ApplicationContext applicationContext;

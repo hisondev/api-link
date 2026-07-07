@@ -23,7 +23,7 @@ import org.springframework.web.socket.config.annotation.EnableWebSocket;
  * </ul>
  *
  * @author Hani Son
- * @version 2.0.1
+ * @version 2.0.2
  */
 @Configuration
 @EnableWebSocket

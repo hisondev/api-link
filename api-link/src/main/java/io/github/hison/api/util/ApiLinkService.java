@@ -29,7 +29,7 @@ import org.springframework.stereotype.Service;
  * </pre>
  *
  * @author Hani son
- * @version 2.0.1
+ * @version 2.0.2
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
